@@ -1,0 +1,40 @@
+[
+    {
+        "id": "faircast",
+        "title": "FairCast – Online Voting System",
+        "status": "Live",
+        "description": "A secure Android voting application featuring biometric face authentication, real-time vote syncing with Firestore, and modular architecture.",
+        "purpose": "Built secure Android voting platform using Kotlin and Firebase with 95% security improvement through face authentication.",
+        "learningOutcome": "Implemented face authentication (95% security improvement), real-time vote syncing with Firestore, modular architecture (Profile, News, Elections, Voting), and improved efficiency by 40%.",
+        "tags": [
+            "Kotlin",
+            "XML",
+            "Firebase",
+            "Android SDK"
+        ],
+        "links": {
+            "demo": "https://urfile.in/files/PgIwG2iE/"
+        }
+    },
+    {
+        "id": "language-translator",
+        "title": "Language Translator – Chatbot",
+        "status": "completed",
+        "description": "AI-based real-time multilingual translator chatbot using Gemini API with intuitive conversation interface.",
+        "purpose": "Developed conversational AI chatbot for real-time multilingual translation with optimized API handling.",
+        "learningOutcome": "Integrated Gemini API for real-time translation, created chatbot interface for conversational translation, frontend with HTML/CSS/JavaScript, and optimized backend with Python Flask for efficient API handling.",
+        "tags": [
+            "Gemini API",
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "Python",
+            "Flask"
+        ],
+        "links": {
+            "github": "https://github.com/Kumar-Mangalam/Lang_Translator",
+            "demo": null
+        }
+    }
+    
+]

@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --color-arch-blue: #1793d1;
+    --color-arch-light: #33aadd;
+    --color-arch-dark: #0f6b99;
+
+    --color-bg-primary: #f8f9fb;
+    --color-bg-secondary: #ffffff;
+    --color-text-primary: #1a1a1a;
+    --color-text-secondary: #5a5a5a;
+    --color-border: #ccd1d9;
+
+    --color-dark-bg-primary: #000000;
+    --color-dark-bg-secondary: #111111;
+    --color-dark-text-primary: #ffffff;
+    --color-dark-text-secondary: #aaaaaa;
+    --color-dark-border: #333333;
+
+    --font-i: "Inter";
+    --font-mono: "JetBrains Mono";
+}
+
+@layer base {
+    body {
+        @apply font-i antialiased transition-colors duration-200;
+        @apply bg-bg-primary text-text-primary;
+        overflow: hidden;
+    }
+
+    .dark body {
+        @apply bg-dark-bg-primary text-dark-text-primary;
+    }
+
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply bg-arch-blue/30 rounded-full hover:bg-arch-blue/50 transition-colors;
+    }
+}
+
+@layer components {
+    .hypr-window {
+        @apply bg-bg-secondary transition-all duration-200;
+        border: 2px solid var(--color-arch-blue);
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.2);
+        @apply dark:bg-dark-bg-secondary/90 dark:backdrop-blur-md;
+    }
+
+    .waybar-module {
+        @apply px-3 py-1 bg-white border border-border rounded-md flex items-center gap-2 text-xs font-mono transition-all duration-200 font-bold;
+        @apply dark:bg-dark-bg-secondary/50 dark:border-dark-border dark:text-dark-text-primary;
+    }
+
+    .neovim-sidebar {
+        @apply border-r border-border bg-slate-100/50 w-64 flex flex-col transition-colors;
+        @apply dark:border-dark-border dark:bg-black/20;
+    }
+
+    .neovim-file {
+        @apply px-4 py-1 flex items-center gap-2 text-text-secondary hover:bg-black/5 cursor-pointer text-sm font-mono transition-colors;
+        @apply dark:text-dark-text-secondary dark:hover:bg-white/5;
+    }
+
+    .active-neovim-file {
+        @apply bg-arch-blue/20 text-arch-blue font-bold;
+    }
+
+    .btn {
+        @apply px-4 py-2 rounded-md transition-all duration-200 outline-none active:scale-95 text-sm font-medium;
+    }
+
+    .btn-primary {
+        @apply bg-arch-blue text-white hover:bg-arch-light shadow-none;
+    }
+
+    .btn-secondary {
+        @apply border border-border text-text-secondary hover:border-arch-blue hover:text-arch-blue font-semibold;
+        @apply dark:border-dark-border dark:text-dark-text-secondary dark:font-normal;
+    }
+
+    .text-muted {
+        @apply text-text-secondary dark:text-dark-text-secondary;
+    }
+
+    .text-main {
+        @apply text-text-primary dark:text-dark-text-primary;
+    }
+
+    /* Modern UI Enhancements */
+    .glass-effect {
+        @apply bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10;
+    }
+
+    .gradient-text {
+        @apply bg-gradient-to-r from-arch-blue via-purple-400 to-arch-blue bg-clip-text text-transparent;
+    }
+
+    .gradient-border {
+        @apply relative;
+        background: linear-gradient(to bottom, var(--color-arch-blue), transparent);
+        padding: 1px;
+    }
+
+    .card-hover {
+        @apply transition-all duration-300 hover:shadow-lg hover:shadow-arch-blue/20 hover:-translate-y-1;
+    }
+
+    .skill-tag-hover {
+        @apply transition-all duration-200 hover:bg-arch-blue/20 hover:border-arch-blue/50 hover:scale-105;
+    }
+
+    /* Smooth Transitions */
+    * {
+        @apply transition-colors duration-200;
+    }
+
+    /* Enhanced scrollbar */
+    .custom-scrollbar {
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-arch-blue) transparent;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: var(--color-arch-blue);
+        border-radius: 3px;
+        border: 2px solid transparent;
+        background-clip: content-box;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background-color: var(--color-arch-light);
+    }
+}

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deepak Kumar Thakur | Portfolio</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+        <div class="nav">
+            <a class="brand" href="#top">
+                Deepak Kumar Thakur
+            </a>
+
+            <nav>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#achievements">Achievements</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<main class="container">
+
+    <!-- HERO -->
+    <section class="hero" id="top">
+        <div class="card">
+            <h1>Hi, I'm Deepak Kumar Thakur 👋</h1>
+            <p class="subtitle">
+                Software Engineer | Android Developer | Backend & Data Enthusiast
+            </p>
+
+            <div class="cta">
+                <a class="btn primary" href="#projects">View Projects</a>
+                <a class="btn secondary" href="/public/Deepak_Kumar_Thakur_CV.pdf" download>
+                    Download CV
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <h2>About</h2>
+        <div class="card">
+            <p class="muted">
+                I am a Computer Science undergraduate at Lovely Professional University with a strong focus on
+                software development, Android applications, and backend systems.
+            </p>
+
+            <p class="muted">
+                I enjoy building scalable applications, designing efficient APIs, and working with real-time systems.
+                My experience spans Android development, MERN stack applications, and data-driven systems.
+            </p>
+
+            <p class="muted">
+                I have solved 200+ DSA problems and continuously work on improving problem-solving,
+                system design, and performance optimization skills.
+            </p>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+        <h2>Skills</h2>
+
+        <div class="grid-2">
+            <div class="card">
+                <h3>Languages</h3>
+                <ul>
+                    <li>Java, Kotlin, Python, C/C++, JavaScript, SQL</li>
+                </ul>
+
+                <h3>Frameworks & Tech</h3>
+                <ul>
+                    <li>React.js, Node.js, Express.js</li>
+                    <li>Android SDK, Firebase</li>
+                    <li>REST APIs</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Data & Tools</h3>
+                <ul>
+                    <li>MongoDB, MySQL, Firebase Firestore</li>
+                    <li>Pandas, NumPy, Scikit-Learn</li>
+                    <li>Git, GitHub, Docker (Learning)</li>
+                </ul>
+
+                <h3>Core Concepts</h3>
+                <ul>
+                    <li>Data Structures & Algorithms</li>
+                    <li>System Design Basics</li>
+                    <li>API Integration & Optimization</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+        <h2>Projects</h2>
+
+        <div class="projects">
+
+            <!-- FAIRCAST -->
+            <article class="project">
+                <h3>FairCast – Online Voting System</h3>
+                <p class="muted">
+                    Built a secure Android-based digital voting platform with real-time data sync and biometric authentication.
+                </p>
+
+                <ul class="muted">
+                    <li>Implemented face authentication improving security by 95%</li>
+                    <li>Designed multi-module architecture using Fragments & Bottom Navigation</li>
+                    <li>Real-time vote updates using Firebase Firestore</li>
+                </ul>
+
+                <div>
+                    <span class="tag">Android</span>
+                    <span class="tag">Kotlin</span>
+                    <span class="tag">Firebase</span>
+                </div>
+            </article>
+
+            <!-- DHARMA -->
+            <article class="project">
+                <h3>Dharma – MERN Stack App</h3>
+                <p class="muted">
+                    Developed a scalable backend-focused web application using MERN stack.
+                </p>
+
+                <ul class="muted">
+                    <li>Designed REST APIs for authentication and data handling</li>
+                    <li>Optimized MongoDB queries for performance</li>
+                    <li>Implemented modular backend architecture</li>
+                </ul>
+
+                <div>
+                    <span class="tag">MERN</span>
+                    <span class="tag">Node.js</span>
+                    <span class="tag">MongoDB</span>
+                </div>
+            </article>
+
+            <!-- FAKE NEWS -->
+            <article class="project">
+                <h3>Fake News Detection System</h3>
+                <p class="muted">
+                    Machine learning-based system for detecting fake news with high accuracy.
+                </p>
+
+                <ul class="muted">
+                    <li>Achieved 92–95% accuracy using ML models</li>
+                    <li>Performed data preprocessing and EDA</li>
+                    <li>Integrated ML backend with Android frontend</li>
+                </ul>
+
+                <div>
+                    <span class="tag">Python</span>
+                    <span class="tag">ML</span>
+                    <span class="tag">Android</span>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- ACHIEVEMENTS -->
+    <section id="achievements">
+        <h2>Achievements</h2>
+
+        <div class="card">
+            <ul>
+                <li>Solved 200+ DSA problems on LeetCode</li>
+                <li>5-Star Gold Rating in Java & C++ on HackerRank</li>
+                <li>Oracle Cloud Infrastructure Data Science Certified</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <h2>Contact</h2>
+
+        <div class="card contact">
+            <p class="muted">
+                <b>Email:</b> dk1816859@gmail.com <br />
+                <b>GitHub:</b> github.com/DeepakThakur10 <br />
+                <b>LinkedIn:</b> linkedin.com/in/deepak078
+            </p>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    &copy; <span id="year"></span> Deepak Kumar Thakur
+</footer>
+
+<script>
+    const startYear = 2025;
+    const currentYear = new Date().getFullYear();
+    document.getElementById("year").textContent =
+        currentYear === startYear ? startYear : `${startYear}-${currentYear}`;
+</script>
+
+</body>
+</html>

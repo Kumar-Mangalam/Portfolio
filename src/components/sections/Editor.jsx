@@ -1,0 +1,258 @@
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+    FileCode,
+    Folder,
+    ChevronRight,
+    Github,
+    ExternalLink,
+    Search,
+    X
+} from 'lucide-react';
+import projectsData from '../../data/projects.json';
+
+export default function Editor({ onClose }) {
+    const [selectedId, setSelectedId] = useState(projectsData[0]?.id);
+    const [cmdBuffer, setCmdBuffer] = useState("");
+    const [showSplashHint, setShowSplashHint] = useState(true);
+    const selectedProject = projectsData.find(p => p.id === selectedId);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setShowSplashHint(false), 4000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    // Vim btw (not really but kinda)
+    // TODO: make it more like Vim/Neovim eventually with more Vim keybindings -> not already though, this much is enough for now plus I'm tired
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            if (e.key === 'Escape') {
+                setCmdBuffer("");
+            } else if (e.key === 'Backspace') {
+                setCmdBuffer(prev => prev.slice(0, -1));
+            } else if (e.key === 'Enter') {
+                if (cmdBuffer === ':q' && onClose) {
+                    onClose();
+                }
+                setCmdBuffer("");
+            } else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                setCmdBuffer(prev => prev + e.key);
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [cmdBuffer, onClose]);
+
+    const getStatusStyle = (status) => {
+        switch (status?.toLowerCase()) {
+            case 'ongoing':
+                return 'text-blue-400 bg-blue-400/10 border-blue-400/20';
+            case 'upcoming':
+                return 'text-yellow-400 bg-yellow-400/10 border-yellow-400/20';
+            case 'completed':
+                return 'text-green-400 bg-green-400/10 border-green-400/20';
+            case 'ongoing & currently private':
+                return 'text-red-400 bg-red-400/10 border-red-400/20';
+            case 'upcoming & currently private':
+                return 'text-red-400 bg-red-400/10 border-red-400/20';
+            case 'base version released':
+                return 'text-purple-400 bg-purple-400/10 border-purple-400/20';
+            default:
+                return 'text-muted bg-black/10 border-border';
+        }
+    };
+
+    return (
+        <div className='flex h-full w-full bg-bg-secondary dark:bg-dark-bg-secondary overflow-hidden border border-border dark:border-dark-border rounded-lg shadow-2xl transition-all relative'>
+            <AnimatePresence>
+                {showSplashHint && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="absolute bottom-12 right-6 z-40 px-4 py-2 bg-arch-blue text-black font-mono text-xs rounded shadow-2xl pointer-events-none flex items-center gap-2"
+                    >
+                        <span>Type <span className="font-bold">:q</span> to exit</span>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            <aside className='neovim-sidebar hidden md:flex'>
+                <div className='p-4 border-b border-border dark:border-dark-border flex items-center justify-between'>
+                    <span className='text-[10px] font-bold text-arch-blue uppercase tracking-widest'> Projects</span>
+                    <Search size={12} className='text-muted' />
+                </div>
+
+                <div className='flex-1 py-2 overflow-y-auto custom-scrollbar'>
+                    <div className='neovim-file text-muted'>
+                        <Folder size={14} />
+                        <span>projects/</span>
+                    </div>
+
+                    {projectsData.map(project => (
+                        <div
+                            key={project.id}
+                            onClick={() => setSelectedId(project.id)}
+                            className={`neovim-file pl-8 ${selectedId === project.id ? 'active-neovim-file' : 'text-muted'}`}
+                        >
+                            <FileCode size={14} className={selectedId === project.id ? 'text-arch-blue' : 'text-muted'} />
+                            <span>{project.id}</span>
+                        </div>
+                    ))}
+                </div>
+
+                <div className='p-2 border-t border-border dark:border-dark-border bg-black/5 dark:bg-black/20'>
+                    <div className='flex items-center gap-2 text-[10px] text-muted font-mono'>
+                        <ChevronRight size={10} />
+                        <span>[Project Details]</span>
+                    </div>
+                </div>
+            </aside>
+
+            <main className='flex-1 flex flex-col min-w-0 bg-bg-primary dark:bg-dark-bg-primary text-text-primary dark:text-dark-text-primary transition-colors'>
+                <div className='flex bg-bg-secondary/50 dark:bg-dark-bg-secondary/50 border-b border-border dark:border-dark-border transition-colors overflow-x-auto custom-scrollbar whitespace-nowrap no-scrollbar relative items-center'>
+                    <div className="flex flex-1 overflow-x-auto no-scrollbar">
+                        {projectsData.map(project => (
+                            <div
+                                key={project.id}
+                                onClick={() => setSelectedId(project.id)}
+                                className={`px-3 sm:px-4 py-2 text-[10px] sm:text-xs font-mono border-r border-border dark:border-dark-border cursor-pointer flex items-center gap-2 shrink-0 transition-colors ${selectedId === project.id ? 'bg-bg-primary dark:bg-dark-bg-primary text-text-primary dark:text-dark-text-primary border-t-2 border-t-arch-blue' : 'text-muted hover:bg-black/5 dark:hover:bg-white/5'
+                                    }`}
+                            >
+                                <FileCode size={12} />
+                                {project.id}
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="flex items-center px-3 border-l border-border dark:border-dark-border h-full">
+                        <button
+                            onClick={onClose}
+                            className="p-1 text-muted hover:text-red-400 hover:bg-red-400/10 rounded transition-colors"
+                        >
+                            <X size={16} />
+                        </button>
+                    </div>
+                </div>
+
+                <div className='flex-1 p-4 sm:p-8 overflow-y-auto custom-scrollbar relative bg-transparent'>
+                    <AnimatePresence mode="wait">
+                        {selectedProject && (
+                            <motion.div
+                                key={selectedId}
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -20 }}
+                                className="max-w-3xl"
+                            >
+                                <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
+                                    <div className="p-3 bg-arch-blue/10 rounded-lg text-arch-blue w-fit">
+                                        <FileCode size={42} />
+                                    </div>
+                                    <div>
+                                        <div className="flex flex-wrap items-center gap-2 mb-1">
+                                            <h2 className='text-2xl sm:text-3xl font-bold'>{selectedProject.title}</h2>
+                                            {selectedProject.status && (
+                                                <span className={`px-2 py-0.5 rounded text-[10px] font-mono border uppercase tracking-wider ${getStatusStyle(selectedProject.status)}`}>
+                                                    {selectedProject.status}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div className='flex items-center gap-3 mb-1'>
+                                            <p className='text-muted font-mono text-[10px] sm:text-xs uppercase tracking-widest'>
+                                                {selectedProject.tags[0]} | <span className='hidden sm:inline'>~/projects/{selectedProject.id}</span>
+                                            </p>
+                                            {selectedProject.startDate && (
+                                                <span className='text-[12px] font-mono text-arch-blue'>
+                                                    [{selectedProject.startDate} - {selectedProject.endDate || 'Present'}]
+                                                </span>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className='space-y-6'>
+                                    <div className='p-5 bg-gradient-to-r from-arch-blue/10 to-purple-400/10 dark:from-arch-blue/5 dark:to-purple-400/5 rounded-lg font-mono text-xs sm:text-sm leading-relaxed border-l-4 border-arch-blue transition-all hover:shadow-lg hover:shadow-arch-blue/20 hover:border-arch-blue/80'>
+                                        {selectedProject.description}
+                                    </div>
+
+                                    {selectedProject.purpose && (
+                                        <div className='p-5 bg-gradient-to-r from-yellow-400/10 to-orange-400/10 dark:from-yellow-400/5 dark:to-orange-400/5 rounded-lg border-l-4 border-yellow-400/50 transition-all hover:shadow-lg hover:shadow-yellow-400/20 hover:border-yellow-400/80'>
+                                            <h4 className='text-[10px] font-mono text-yellow-400 uppercase mb-2 font-bold tracking-wider'>Purpose</h4>
+                                            <p className='font-mono text-xs sm:text-sm leading-relaxed text-muted'>
+                                                {selectedProject.purpose}
+                                            </p>
+                                        </div>
+                                    )}
+
+                                    {selectedProject.learningOutcome && (
+                                        <div className='p-5 bg-gradient-to-r from-emerald-400/10 to-teal-400/10 dark:from-emerald-400/5 dark:to-teal-400/5 rounded-lg border-l-4 border-emerald-400/50 transition-all hover:shadow-lg hover:shadow-emerald-400/20 hover:border-emerald-400/80'>
+                                            <h4 className='text-[10px] font-mono text-emerald-400 uppercase mb-2 font-bold tracking-wider'>Learning Outcome</h4>
+                                            <p className='font-mono text-xs sm:text-sm leading-relaxed text-muted italic'>
+                                                {selectedProject.learningOutcome}
+                                            </p>
+                                        </div>
+                                    )}
+
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        {selectedProject.links.github && (
+                                            <a
+                                                href={selectedProject.links.github}
+                                                target="_blank"
+                                                className="btn btn-secondary flex items-center justify-center gap-2 font-mono text-xs hover:shadow-lg hover:shadow-arch-blue/30 hover:-translate-y-0.5"
+                                            >
+                                                <Github size={16} /> <span className='truncate'>View on GitHub</span>
+                                            </a>
+                                        )}
+                                        {selectedProject.links.demo && (
+                                            <a
+                                                href={selectedProject.links.demo}
+                                                target="_blank"
+                                                className="btn btn-primary flex items-center justify-center gap-2 font-mono text-xs hover:shadow-lg hover:shadow-arch-blue/40 hover:-translate-y-0.5"
+                                            >
+                                                <ExternalLink size={14} className='text-black' /> <span className='text-black'>live view / get app</span>
+                                            </a>
+                                        )}
+                                    </div>
+
+                                    <div className='pt-4'>
+                                        <h4 className='text-[10px] sm:text-xs font-mono text-arch-blue uppercase mb-3 font-bold tracking-wider'>Tech Stack</h4>
+                                        <div className='flex flex-wrap gap-2'>
+                                            {selectedProject.tags.map(tag => (
+                                                <span key={tag} className='px-3 sm:px-4 py-1.5 bg-black/5 dark:bg-white/5 rounded-full text-[9px] sm:text-[10px] font-mono text-muted border border-arch-blue/30 dark:border-arch-blue/20 transition-all hover:bg-arch-blue/10 hover:border-arch-blue/70 hover:text-arch-blue hover:scale-105 cursor-default'>
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
+
+                <div className='flex items-center text-[9px] sm:text-[10px] font-bold transition-colors border-t border-border dark:border-dark-border min-h-[25px] sm:min-h-[28px] overflow-hidden'>
+                    <div className='bg-arch-blue text-black px-2 sm:px-4 py-1 h-full flex items-center shrink-0'>
+                        {cmdBuffer.startsWith(':') ? 'COMMAND' : 'NORMAL'}
+                    </div>
+                    <div className='bg-bg-secondary dark:bg-[#1c1c1c] text-muted px-2 sm:px-4 py-1 flex-1 transition-colors truncate h-full flex items-center group relative'>
+                        {cmdBuffer ? (
+                            <span className="text-arch-blue">{cmdBuffer}</span>
+                        ) : (
+                            <div className="flex items-center gap-2">
+                                <span className="opacity-100 transition-opacity">~/projects/{selectedId}</span>
+                                <span className="opacity-70 text-[18px] sm:text-[12px] text-arch-blue/80 font-normal ml-2 tracking-tighter">
+                                    [type :q to exit]
+                                </span>
+                            </div>
+                        )}
+                    </div>
+                    <div className='hidden sm:flex bg-bg-secondary dark:bg-[#1c1c1c] text-arch-blue px-4 py-1 border-l border-border dark:border-white/10 transition-colors h-full items-center shrink-0'>UTF-8</div>
+                    <div className='bg-arch-blue text-black px-2 sm:px-4 py-1 uppercase truncate max-w-20 sm:max-w-none h-full flex items-center shrink-0'>{selectedProject?.tags[0] || 'FILE'}</div>
+                </div>
+            </main>
+        </div>
+    );
+}
