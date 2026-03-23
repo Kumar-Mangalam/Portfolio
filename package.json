@@ -1,8 +1,8 @@
 {
-    "name": "deepak-portfolio",
+    "name": "kumar-mangalam-portfolio",
     "private": true,
     "version": "1.0.0",
-    "author": "Deepak Kumar Thakur",
+    "author": "Kumar Mangalam",
     "type": "module",
     "scripts": {
         "dev": "vite",
