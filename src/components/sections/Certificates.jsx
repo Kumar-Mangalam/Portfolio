@@ -5,21 +5,21 @@ const CERTIFICATES = [
     {
         title: "Oracle Data Science Professional",
         issuer: "Oracle",
-        date: "2024",
+        date: "2025",
         link: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=AA02C4194D6EA1B8116A9353E6F6F0EC1B8FC2866A8A201601F0B1D7B2BF2FE0",
         platform: "Oracle"
     },
     {
         title: "Infosys Generative AI Certification",
         issuer: "Infosys",
-        date: "2024",
+        date: "2025",
         link: "https://infyspringboard.onwingspan.com/public-assets/infosysheadstart/cert/lex_auth_014157710267834368237/1-0bc67b06-18cd-4677-8b07-6332c1229443.pdf",
         platform: "Infosys"
     },
     {
         title: "NPTEL Cloud Computing",
         issuer: "IIT Kharagpur",
-        date: "2024",
+        date: "2025",
         link: "https://archive.nptel.ac.in/content/noc/NOC25/SEM1/Ecertificates/106/noc25-cs11/Course/NPTEL25CS11S143730181504239777.pdf",
         platform: "NPTEL"
     },
