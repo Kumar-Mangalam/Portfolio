@@ -24,7 +24,7 @@ export default function Contact() {
             name: 'LinkedIn',
             icon: Linkedin,
             value: 'linkedin.com/in/KumarMangalam',
-            link: 'https://linkedin.com/in/KumarMangalam',
+            link: 'https://www.linkedin.com/in/kumar-mangalam-abc/',
             color: 'text-[#0077b5]'
         }
     ];
