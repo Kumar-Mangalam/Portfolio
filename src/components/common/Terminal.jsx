@@ -7,7 +7,6 @@ Available commands:
   about           - Learn about Kumar Mangalam, his background, and interests
   skills          - View technical skills & expertise
   projects        - View featured projects & case studies
-  learning        - Current learning areas & statistics
   training        - Professional trainings & bootcamps
   certificates    - Certifications & achievements
   education       - Academic background
@@ -38,7 +37,7 @@ export default function Terminal({ onCommand, onClose }) {
         }
     }, [history]);
 
-    const COMMANDS = ['about', 'skills', 'projects', 'learning', 'training', 'certificates', 'education', 'cv', 'contact', 'help', 'clear'];
+    const COMMANDS = ['about', 'skills', 'projects','training', 'certificates', 'education', 'cv', 'contact', 'help', 'clear'];
 
     const matches = COMMANDS.filter(cmd => cmd.startsWith(baseInput.toLowerCase()));
     const ghostText = (matches.length > 0 && input !== matches[0] && baseInput !== '') ? matches[0] : '';
